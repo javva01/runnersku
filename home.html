@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Lari</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background: #2196F3;
+      color: white;
+      padding: 1em 2em;
+      position: relative;
+    }
+
+    nav {
+      position: absolute;
+      top: 1em;
+      right: 2em;
+    }
+
+    nav select {
+      padding: 0.5em;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+    }
+
+    .page {
+      display: none;
+      padding: 2em;
+      background-color: white;
+      margin: 2em auto;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .active {
+      display: block;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 15px;
+    }
+
+    input, button, select {
+      font-size: 1em;
+      margin: 0.5em 0;
+      padding: 0.5em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1976D2;
+    }
+
+    .chat-box {
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 1em;
+      background: #fff;
+      border-radius: 10px;
+      margin-bottom: 1em;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-message {
+      max-width: 75%;
+      margin-bottom: 1em;
+      padding: 0.8em 1em;
+      border-radius: 18px;
+      line-height: 1.4;
+      font-size: 0.95em;
+      word-wrap: break-word;
+    }
+
+    .chat-message.user {
+      align-self: flex-end;
+      background-color: #cce5ff;
+      color: #000;
+      border-top-right-radius: 0;
+    }
+
+    .chat-message.bot {
+      align-self: flex-start;
+      background-color: #f1f0f0;
+      border-top-left-radius: 0;
+    }
+
+    .chat-controls {
+      display: flex;
+      gap: 0.5em;
+      align-items: center;
+      padding: 0 0.5em;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 0.6em;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .send-btn {
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      font-size: 1.2em;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .send-btn:hover {
+      background-color: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Website Lari</h1>
+    <nav>
+      <select id="menu" onchange="navigate()">
+        <option value="home">Home</option>
+        <option value="jadwal">Jadwal</option>
+        <option value="kalkulator">Kalkulator</option>
+        <option value="coach">CoachAi</option>
+      </select>
+    </nav>
+  </header>
+
+  <!-- Halaman Home -->
+  <div id="home" class="page active">
+    <h2>Istilah dalam Lari</h2>
+    <ul>
+      <li><strong>Pace:</strong> Kecepatan rata-rata per kilometer. Contoh: pace 5:00 berarti 5 menit per kilometer.</li>
+      <li><strong>Pacer:</strong> Pelari yang membantu peserta lomba untuk menjaga kecepatan tertentu agar mencapai waktu target.</li>
+      <li><strong>PB (Personal Best):</strong> Catatan waktu terbaik pribadi untuk jarak tertentu seperti 5K, 10K, Half Marathon, atau Marathon.</li>
+      <li><strong>Interval:</strong> Latihan dengan pola lari cepat diikuti lari/jalan lambat. Contoh: 6x400m dengan jeda 1 menit.</li>
+      <li><strong>Tempo Run:</strong> Lari dengan kecepatan konstan sedikit di bawah ambang anaerobik, berguna untuk meningkatkan ketahanan kecepatan.</li>
+      <li><strong>Recovery Run:</strong> Lari santai setelah latihan berat sebelumnya untuk mempercepat pemulihan otot.</li>
+      <li><strong>Long Run:</strong> Lari jarak jauh (biasanya 1,5-2x durasi biasa) yang melatih daya tahan tubuh dan mental.</li>
+      <li><strong>Easy Run:</strong> Lari ringan tanpa tekanan, digunakan sebagai bagian dari pemulihan atau transisi latihan.</li>
+      <li><strong>Strength & Drills:</strong> Latihan penguatan otot inti, kaki, dan teknik seperti skipping, high knees, bounding, untuk meningkatkan efisiensi lari.</li>
+      <li><strong>Cadence:</strong> Jumlah langkah per menit (SPM). Idealnya 170–180 untuk efisiensi.</li>
+      <li><strong>Splits:</strong> Waktu per segmen (misal tiap 1 km) selama lari, berguna untuk evaluasi konsistensi.</li>
+      <li><strong>Overtraining:</strong> Kondisi ketika tubuh tidak punya cukup waktu pemulihan, menyebabkan kelelahan atau cedera.</li>
+    </ul>
+  </div>
+
+  <!-- Halaman Jadwal -->
+  <div id="jadwal" class="page">
+    <h2>Jadwal Mingguan</h2>
+    <p id="hari-jadwal"></p>
+    <p id="detail-jadwal"></p>
+    <h3>Pemanasan</h3>
+    <p>- Jogging ringan 5 menit<br>- Dynamic stretching (high knees, butt kicks)</p>
+    <h3>Pendinginan</h3>
+    <p>- Jalan kaki 5 menit<br>- Static stretching (hamstring, quad, calf)</p>
+  </div>
+
+  <!-- Halaman Kalkulator -->
+  <div id="kalkulator" class="page">
+    <h2>Kalkulator Pace</h2>
+    <label>Jarak (km):</label>
+    <input type="number" id="jarak" step="0.01">
+    <label>Waktu (menit):</label>
+    <input type="number" id="waktu">
+    <button onclick="hitungPace()">Hitung Pace</button>
+    <p id="hasil-pace"></p>
+  </div>
+
+  <!-- Halaman CoachAi -->
+  <div id="coach" class="page">
+    <h2>CoachAi</h2>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-controls">
+      <input class="chat-input" id="user-input" placeholder="Tanya CoachAi tentang lari..." onkeypress="if(event.key==='Enter'){sendMessage()}" />
+      <button class="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <script>
+    function navigate() {
+      const menu = document.getElementById('menu').value;
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(menu).classList.add('active');
+    }
+
+    const jadwal = {
+      "Minggu": { jenis: "Easy Run", detail: "Lari ringan 5 km dengan pace 7:00/km" },
+      "Senin": { jenis: "Interval", detail: "6x400m @ pace 4:30/km, rest 1 menit" },
+      "Selasa": { jenis: "Rest Day", detail: "Hari istirahat total." },
+      "Rabu": { jenis: "Tempo Run", detail: "Lari 6 km @ pace 5:30/km" },
+      "Kamis": { jenis: "Recovery", detail: "Lari santai 4 km @ pace 7:30/km" },
+      "Jumat": { jenis: "Strength & Drills", detail: "Latihan gym dan drills teknik selama 45 menit" },
+      "Sabtu": { jenis: "Long Run", detail: "Lari 12 km @ pace 6:30/km" }
+    };
+
+    const hariIni = new Date().toLocaleDateString('id-ID', { weekday: 'long' });
+    const infoJadwal = jadwal[hariIni];
+    document.getElementById('hari-jadwal').innerText = `Hari ini: ${hariIni} - ${infoJadwal.jenis}`;
+    document.getElementById('detail-jadwal').innerText = infoJadwal.detail;
+
+    function hitungPace() {
+      const jarak = parseFloat(document.getElementById('jarak').value);
+      const waktu = parseFloat(document.getElementById('waktu').value);
+      if (jarak > 0 && waktu > 0) {
+        const pace = waktu / jarak;
+        const menit = Math.floor(pace);
+        const detik = Math.round((pace - menit) * 60);
+        document.getElementById('hasil-pace').innerText = `Pace: ${menit} menit ${detik} detik/km`;
+      } else {
+        document.getElementById('hasil-pace').innerText = 'Masukkan jarak dan waktu yang valid.';
+      }
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById("user-input");
+      const chatBox = document.getElementById("chat-box");
+      const userText = input.value;
+      if (!userText) return;
+
+      const userDiv = document.createElement("div");
+      userDiv.className = "chat-message user";
+      userDiv.textContent = userText;
+      chatBox.appendChild(userDiv);
+
+      input.value = "";
+
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer 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",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "openai/gpt-3.5-turbo",
+          messages: [
+            { role: "system", content: "Kamu adalah pelatih lari virtual. Jawab hanya pertanyaan yang berkaitan dengan olahraga lari. Jika pertanyaannya di luar topik, beri tahu dengan sopan bahwa kamu hanya fokus pada topik lari dan pelatihan." },
+            { role: "user", content: userText }
+          ]
+        })
+      });
+
+      const data = await response.json();
+      const botReply = data.choices?.[0]?.message?.content || "(Pertanyaan tidak terkait lari atau terjadi kesalahan)";
+
+      const botDiv = document.createElement("div");
+      botDiv.className = "chat-message bot";
+      botDiv.textContent = botReply;
+      chatBox.appendChild(botDiv);
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
